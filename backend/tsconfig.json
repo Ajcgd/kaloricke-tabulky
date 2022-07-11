@@ -1,0 +1,10 @@
+{
+  "extends": "@tsconfig/node16-strictest",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "importsNotUsedAsValues": "preserve",
+    "noUnusedLocals": false /* Does not report errors on unused locals. */,
+    "noUnusedParameters": false /* Does not eport errors on unused parameters. */,
+    "exactOptionalPropertyTypes": false
+  }
+}

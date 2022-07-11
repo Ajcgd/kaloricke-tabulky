@@ -1,0 +1,242 @@
+user:
+  - id: "1"
+  - id: "2"
+  - id: "3"
+  - id: "4"
+    roleName: "admin"
+
+userCredentials:
+  - email: "admin@admin.cz"
+    userId: "4"
+    # password is "admin"
+    passwordHash: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+
+  - email: "1@1.com"
+    userId: "1"
+    # password is "1"
+    passwordHash: "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+
+  - email: "jedunakoni@paneboze.cz"
+    userId: "2"
+    # password is "password"
+    passwordHash: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+
+  - email: "kolokolomlynsky@zactyrirynsky.de"
+    userId: "3"
+    # password is "a"
+    passwordHash: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+
+# # I have NO idea how much crabs/fats/... one should eat
+userDetails:
+  - username: "admin"
+    name: "Adam"
+    surname: "The Admin"
+    weight: 0
+    height: 0
+    birthdate: "2000-01-01T12:00:00.000Z"
+    # True male chad
+    sex: 1
+    userId: "4"
+    email: "admin@admin.cz"
+    goalWeight: 100
+
+  - username: "banrinoneposedneoboci"
+    name: "Bářino"
+    surname: "Neposendéobočí"
+    weight: 0
+    height: 0
+    birthdate: "2000-01-01T12:00:00.000Z"
+    # True male chad
+    sex: 1
+    userId: "1"
+    email: "nothing.here@empty.null"
+    goalWeight: 100
+
+  - username: "user"
+    name: "Black"
+    surname: "Hole"
+    weight: 290
+    height: 175
+    birthdate: "1975-01-01T12:00:00.000Z"
+    sex: 0.5
+    email: give.mefood@hung.ry
+    userId: "2"
+    goalWeight: 30
+
+  - username: "a"
+    name: "a"
+    surname: "a"
+    weight: 87
+    height: 180
+    birthdate: "1979-12-01T12:00:00.000Z"
+    sex: 0
+    email: "mail.mail@mail.com"
+    userId: "3"
+    goalWeight: 60
+
+userGoals:
+  - userId: "1"
+    carbs: 0
+    proteins: 0
+    fats: 0
+    fiber: 0
+    salt: 0
+    calories: 0
+
+  - userId: "2"
+    carbs: 350
+    proteins: 69
+    fats: 960
+    fiber: 540
+    salt: 0
+    calories: 2790
+
+  - userId: "3"
+    carbs: 150
+    proteins: 150
+    fats: 150
+    fiber: 150
+    salt: 20
+    calories: 1850
+
+food:
+  - id: "banán"
+    name: "Banán"
+    description: "Banán (na 100g)"
+    calories: 88
+    proteins: 1.2
+    carbs: 20.9
+    fats: 0.1
+    fiber: 1.1
+    salt: 0
+    creatorId: "4"
+    imageUrl: "https://cdn.rohlik.cz/cdn-cgi/image/f=auto,w=650/https://cdn.rohlik.cz/uploads/Vendy/banana-2449019_640.jpg"
+
+  - id: "mango"
+    name: "Mango"
+    description: "Mango (na 100g)"
+    calories: 59
+    proteins: 0.7
+    carbs: 13.8
+    fats: 0.2
+    fiber: 2.6
+    salt: 0
+    creatorId: "4"
+    imageUrl: "https://cdn.shopify.com/s/files/1/0521/2166/5695/products/Mango2.jpg?v=1610366602"
+
+  - id: "jablko"
+    name: "Jablko"
+    description: "Jablko (na 100g)"
+    calories: 74
+    proteins: 0.9
+    carbs: 12.8
+    fats: 0.1
+    fiber: 5.7
+    salt: 0
+    creatorId: "4"
+    imageUrl: "https://zenysro.cz/images/tinymce-images/images/2_60695f147f71b.jpg"
+
+  - id: "hrozny"
+    name: "Hrozny"
+    description: "Hrozny (bobule) (na 100g)"
+    calories: 47
+    proteins: 0.5
+    carbs: 9.8
+    fats: 0.1
+    fiber: 2.2
+    salt: 0
+    creatorId: "4"
+    imageUrl: "https://cdn.myshoptet.com/usr/www.pennydomu.cz/user/shop/big/16634-3_165107-hroznove-vino-hrozen.jpg?61095cbb"
+
+  - id: "pomeranč"
+    name: "Pomeranč"
+    description: "Pomeranč (na 100g)"
+    calories: 47
+    proteins: 0.9
+    carbs: 12.2
+    fats: 0.1
+    fiber: 0
+    salt: 0
+    creatorId: "4"
+    imageUrl: "https://www.rohlik.cz/cdn-cgi/image/f=auto,w=500,h=500/https://cdn.rohlik.cz/images/grocery/products/1288593/1288593-1482834161.jpg"
+
+  - id: "ananas"
+    name: "Ananas"
+    description: "Ananas (na 100g)"
+    calories: 50
+    proteins: 0.5
+    carbs: 13
+    fats: 0.1
+    fiber: 2.6
+    salt: 0
+    creatorId: "4"
+    imageUrl: "https://eshop.sklizeno.cz/data/images/product/498x498/400/400734_1.jpg?-62167222664"
+
+  - id: "vodní meloun"
+    name: "Vodní meloun"
+    description: "Vodní meloun (na 100g)"
+    calories: 30
+    proteins: 0.6
+    carbs: 8
+    fats: 0.2
+    fiber: 0.4
+    salt: 0
+    creatorId: "4"
+    imageUrl: "https://images.labuznik.cz/i/images/640/1/14452.jpg?3"
+
+  - id: "steak vepřový"
+    name: "Steak vepřový"
+    description: "Steak vepřový (na 100g)"
+    calories: 270
+    proteins: 23.8
+    carbs: 0
+    fats: 19
+    fiber: 0
+    salt: 2
+    creatorId: "4"
+    imageUrl: "https://media.igurmet.cz/yummy/b6/96/b6969ce86c821c448273d505b11358e9.jpg"
+
+  - id: "těstoviny"
+    name: "Těstoviny"
+    description: "Pšeničné těstoviny (na 100g)"
+    calories: 131
+    proteins: 5.9
+    carbs: 25
+    fats: 1.1
+    fiber: 0
+    salt: 1
+    creatorId: "4"
+    imageUrl: "https://cdn.myshoptet.com/usr/www.potravinyarax.cz/user/shop/big/517_penne-shora-small.png?61711de1"
+
+  - id: "jogurt (bílý)"
+    name: "Jogurt (bílý)"
+    description: "Bílý Jogurt (na 100g)"
+    calories: 58
+    proteins: 10
+    carbs: 3.6
+    fats: 0.4
+    fiber: 0
+    salt: 0.1
+    creatorId: "4"
+    imageUrl: "https://www.mlekarna-valmez.cz/data/produkty/1000/100/57/6028_v600e.jpg"
+
+diaryEntry:
+  - id: "1"
+    userId: "1"
+    mealType: "Lunch"
+    foodId: "banán"
+    grams: 120
+    date: 2022-06-18 10:00
+
+role:
+  - name: "user"
+    canDeleteUsers: false
+    canPromoteUsers: false
+    canCUDOwnFood: false
+    canCUDAnyFood: false
+
+  - name: "admin"
+    canDeleteUsers: true
+    canPromoteUsers: true
+    canCUDOwnFood: true
+    canCUDAnyFood: true

@@ -1,0 +1,620 @@
+openapi: 3.0.1
+info:
+  description: "This is documentation for Kalorické tabulky, describing its REST API"
+  version: 1.0.0
+  title: "Kalorické tabulky"
+  contact:
+    email: "514017@mail.muni.cz"
+servers:
+  - url: "http://localhost:3000/"
+tags:
+  - name: "Food"
+    description: "Provides information about food"
+  - name: "User"
+    description: "Provides information about user"
+  - name: "Goals"
+    description: "Provides information about goals"
+paths:
+  /api/food:
+    put:
+        tags:
+          - "Food"
+        summary: "Create new food"
+        operationId: "createFood"
+        requestBody:
+          description: "Food data"
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FoodData"
+        responses:
+          "200":
+            description: "successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/SingleFoundResponse"
+          '400':
+            description: some fields contain wrong data (like negative calories), or are missing
+          "500":
+            description: "internal error"
+
+
+    post:
+        tags:
+          - "Food"
+        summary: "Update existing food"
+        operationId: "updateFood"
+        requestBody:
+          description: "Food data"
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateFoodData"
+        responses:
+          "200":
+            description: "successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/SingleFoundResponse"
+          '400':
+            description: some fields contain wrong data (like negative calories), or are missing
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ValidationError"
+          "500":
+            description: "internal error"
+
+
+    get:
+      tags:
+        - "Food"
+      summary: "Get all foods from database"
+      operationId: "getFood"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MultipleFoodResponse"
+        "500":
+          description: "internal error"
+
+
+  /api/food/id/:{id}:
+    get:
+      tags:
+        - "Food"
+      summary: "Get food by id"
+      operationId: "getFoodById"
+      parameters:
+        - in: path
+          name: id  
+          required: true
+          schema:
+            type: uuid
+          description: The user UUID
+      responses:
+        "200":
+          description: "Return food with matching id"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SingleFoundResponse"
+        "500":
+          description: "internal error"
+
+
+  /api/food/name/:{name}:
+    get:
+      tags:
+        - "Food"
+      summary: "Get food by name"
+      operationId: "getFoodByName"
+      parameters:
+        - in: path
+          name: name  
+          required: true
+          schema:
+            type: string
+          description: Substring to look for
+      responses:
+        "200":
+          description: "Return food with name containing given string"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MultipleFoodResponse"
+        "500":
+          description: "internal error"
+
+
+  /api/food/:{id}:
+    delete:
+      tags:
+        - "Food"
+      summary: "Delete food by id by setting deleted parabeter to true"
+      operationId: "deleteFood"
+      parameters:
+        - in: path
+          name: id  
+          required: true
+          schema:
+            type: uuid
+          description: The user UUID
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SingleFoundResponse"
+        "500":
+          description: "internal error"
+  
+
+
+  /api/user:
+    put:
+        tags:
+          - "User"
+        summary: "Create new user"
+        operationId: "createUser"
+        requestBody:
+          description: "User data"
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserData"
+        responses:
+          "200":
+            description: "successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/SingleUserResponse"
+          '400':
+            description: some fields contain wrong data (like negative height), or are missing
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ValidationError"
+          "500":
+            description: "internal error"
+  
+  /api/user/:{id}:
+    get:
+      tags:
+        - "User"
+      summary: "Get user by id"
+      operationId: "getUserById"
+      parameters:
+        - in: path
+          name: id  
+          required: true
+          schema:
+            type: uuid
+          description: The user UUID
+      responses:
+        "200":
+          description: "Return user with matching id"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SingleUserResponse"
+        "500":
+          description: "internal error"
+    post:
+        tags:
+          - "User"
+        summary: "Update existing user"
+        operationId: "updateUser"
+        parameters:
+        - in: path
+          name: id  
+          required: true
+          schema:
+            type: uuid
+          description: The user UUID
+        requestBody:
+          description: "User data"
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateUserData"
+        responses:
+          "200":
+            description: "successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/SingleUserResponse"
+          '400':
+            description: some fields contain wrong data (like negative height)
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ValidationError"
+          "500":
+            description: "internal error"
+
+  /api/goals/:{userId}:
+    get:
+      tags:
+        - "Goals"
+      summary: "Get user goals"
+      operationId: "getUserGoals"
+      parameters:
+        - in: path
+          name: userId  
+          required: true
+          schema:
+            type: uuid
+          description: The user UUID
+      responses:
+        "200":
+          description: "Return user goals"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SingleGoalsResponse"
+        "500":
+          description: "internal error"
+    
+    post:
+        tags:
+          - "Goals"
+        summary: "Update user goals"
+        operationId: "updateUserGoals"
+        parameters:
+        - in: path
+          name: id  
+          required: true
+          schema:
+            type: uuid
+          description: The user UUID
+        requestBody:
+          description: "User goals data"
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateGoalsData"
+        responses:
+          "200":
+            description: "successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/SingleGoalsResponse"
+          '400':
+            description: some fields contain wrong data (like negative calories)
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ValidationError"
+          "500":
+            description: "internal error"
+      
+    put:
+      tags:
+        - "Goals"
+      summary: "Create user goals"
+      operationId: "createUserGoals"
+      parameters:
+        - in: path
+          name: id  
+          required: true
+          schema:
+            type: uuid
+          description: The user UUID
+      requestBody:
+        description: "User goals data"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GoalsData"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SingleGoalsResponse"
+        '400':
+          description: some fields contain wrong data (like negative calories)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationError"
+        "500":
+          description: "internal error"
+      
+
+
+components:
+  schemas:
+    ValidationError:
+      type: object
+      properties:
+        status:
+          type: string
+        data:
+          type: object
+        message:
+          type: string
+          description: "Error message"
+
+    FoodData:
+      required:
+        - name
+        - description
+        - calories
+        - proteins
+        - carbs
+        - fats
+        - fiber
+        - salt
+        - deleted
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Banana"
+        description:
+          type: string
+          example: A Yellow Banana
+        calories:
+          type: number
+          example: 124.8
+          description: Calories of the food (in kcal)
+        proteins:
+          type: number
+          example: 36.7
+          description: Proteins in the food (per 100g)
+        carbs:
+          type: number
+          example: 78.0
+          description: Carbohydrates in the food (per 100g)
+        fats:
+          type: number
+          example: 4.1
+          description: Fats in the food (per 100g)
+        fiber:
+          type: number
+          example: 14.3
+          description: Fiber in the food (per 100g)
+        salt:
+          type: number
+          example: 0.8
+          description: Salt in the food (per 100g)
+        deleted:
+          type: boolean
+          example: false
+          description: Whether the food is deleted or not
+
+    UpdateFoodData:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: "string"
+          format: uuid
+        name:
+          type: string
+          example: "Banana"
+        description:
+          type: string
+          example: A Yellow Banana
+        calories:
+          type: number
+          example: 124.8
+          description: Calories of the food (in kcal)
+        proteins:
+          type: number
+          example: 36.7
+          description: Proteins in the food (per 100g)
+        carbs:
+          type: number
+          example: 78.0
+          description: Carbohydrates in the food (per 100g)
+        fats:
+          type: number
+          example: 4.1
+          description: Fats in the food (per 100g)
+        fiber:
+          type: number
+          example: 14.3
+          description: Fiber in the food (per 100g)
+        salt:
+          type: number
+          example: 0.8
+          description: Salt in the food (per 100g)
+
+    SingleFoundResponse:
+      type: object
+      properties: 
+        status:
+          type: string
+        data:
+          type: FoodData
+        message:
+          type: string
+
+    MultipleFoodResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/FoodData"
+        message:
+          type: string
+
+
+    UserData:
+      required:
+        - name
+        - surname
+        - height
+        - weight
+        - birthdate
+        - sex
+        - email
+      type: object
+      properties:
+        name:
+          type: string
+          example: Johnny
+          description: Users real name
+        surname:
+          type: string
+          example: Sins
+          description: Users real surname
+        height:
+          type: number
+          example: 185
+          description: Persons height in cm
+        weight:
+          type: number
+          example: 75
+          description: Persons weight in kg
+        birthdate:
+          type: string
+          example: "2020-01-01"
+          description: Persons birthdate
+        sex:
+          type: number
+          example: 0.5
+          description: Non-binary gender representation
+        email:
+          type: string
+          example: "johnny.sins@onlyfans.com"
+          description: Persons email
+
+    SingleUserResponse:
+      type: object
+      properties: 
+        status:
+          type: string
+        data:
+          type: UserData
+        message:
+          type: string
+
+    UpdateUserData:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Johnny
+          description: Users real name
+        surname:
+          type: string
+          example: Sins
+          description: Users real surname
+        height:
+          type: number
+          example: 185
+          description: Persons height in cm
+        weight:
+          type: number
+          example: 75
+          description: Persons weight in kg
+        birthdate:
+          type: string
+          example: "2020-01-01"
+          description: Persons birthdate
+        sex:
+          type: number
+          example: 0.5
+          description: Non-binary gender representation
+        email:
+          type: string
+          example: "johnny.sins@onlyfans.com"
+          description: Persons email
+
+    GoalsData:
+      type: object
+      required:
+        - carbs
+        - proteins
+        - fats
+        - fiber
+        - salt
+        - deleted
+        - calories
+      properties:
+        carbs:
+          type: number
+          example: 78.0
+          description: Carbohydrates in the food (per 100g)
+        proteins:
+          type: number
+          example: 36.7
+          description: Proteins in the food (per 100g)
+        fats:
+          type: number
+          example: 4.1
+          description: Fats in the food (per 100g)
+        fiber:
+          type: number
+          example: 14.3
+          description: Fiber in the food (per 100g)
+        salt:
+          type: number
+          example: 0.8
+          description: Salt in the food (per 100g)
+        alories:
+          type: number
+          example: 124.8
+          description: Calories of the food (in kcal)
+    
+    UpdateGoalsData:
+      type: object
+      properties:
+        carbs:
+          type: number
+          example: 78.0
+          description: Carbohydrates in the food (per 100g)
+        proteins:
+          type: number
+          example: 36.7
+          description: Proteins in the food (per 100g)
+        fats:
+          type: number
+          example: 4.1
+          description: Fats in the food (per 100g)
+        fiber:
+          type: number
+          example: 14.3
+          description: Fiber in the food (per 100g)
+        salt:
+          type: number
+          example: 0.8
+          description: Salt in the food (per 100g)
+        alories:
+          type: number
+          example: 124.8
+          description: Calories of the food (in kcal)
+    
+    SingleGoalsResponse:
+      type: object
+      properties: 
+        status:
+          type: string
+        data:
+          type: GoalsData
+        message:
+          type: string

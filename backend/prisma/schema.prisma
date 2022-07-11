@@ -1,0 +1,105 @@
+generator client {
+  previewFeatures = ["interactiveTransactions"]
+  provider        = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./database.db"
+}
+
+model User {
+  id          String           @id @default(uuid())
+  credentials UserCredentials?
+  details     UserDetails?
+  goals       UserGoals?
+  diary       DiaryEntry[]
+  Sessions    Session[]
+  roleName    String           @default("user")
+  Role        Role             @relation(fields: [roleName], references: [name])
+  deleted     DateTime?
+  Food        Food[]
+}
+
+model UserCredentials {
+  email        String    @id
+  userId       String    @unique
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  passwordHash String
+  deleted      DateTime?
+}
+
+model UserGoals {
+  carbs    Float
+  proteins Float
+  fats     Float
+  fiber    Float
+  salt     Float
+  calories Float?
+  deleted  DateTime?
+
+  userId String @id @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserDetails {
+  username   String
+  name       String
+  surname    String
+  weight     Float
+  height     Float
+  birthdate  DateTime
+  sex        Float
+  email      String    @unique
+  goalWeight Float
+  deleted    DateTime?
+
+  userId String @id @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// C = create, U = update, D = delete
+model Role {
+  name            String  @id @unique
+  canDeleteUsers  Boolean @default(false)
+  canPromoteUsers Boolean @default(false)
+  canCUDOwnFood   Boolean @default(false)
+  canCUDAnyFood   Boolean @default(false)
+  User            User[]
+}
+
+model Food {
+  name         String       @unique
+  id           String       @id
+  description  String
+  calories     Float
+  proteins     Float
+  carbs        Float
+  fats         Float
+  fiber        Float
+  salt         Float
+  imageUrl     String?
+  deleted      DateTime?
+  diaryEntries DiaryEntry[]
+  createdBy    User         @relation(fields: [creatorId], references: [id])
+  creatorId    String
+
+}
+
+model DiaryEntry {
+  id       String    @id @default(uuid())
+  foodId   String
+  food     Food      @relation(fields: [foodId], references: [id])
+  grams    Float
+  date     DateTime
+  userId   String
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mealType String
+  deleted  DateTime?
+}
+
+model Session {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
